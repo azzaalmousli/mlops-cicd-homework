@@ -1,3 +1,5 @@
+import pytest
+
 from app.features import hash_feature
 
 
@@ -14,3 +16,11 @@ def test_hash_feature_output_range():
     """
     result = hash_feature("mlops", 10)
     assert 0 <= result < 10
+
+
+def test_hash_feature_rejects_non_positive_buckets():
+    """
+    Non-positive bucket counts should raise an error.
+    """
+    with pytest.raises(ValueError):
+        hash_feature("mlops", 0)
